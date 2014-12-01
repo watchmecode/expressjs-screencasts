@@ -1,9 +1,17 @@
 #!/usr/bin/env node
 var debug = require('debug')('58-routing-basics');
 var app = require('../app');
+var epa = require("epa").getEnvironment();
+var mongoose = require("mongoose");
 
 app.set('port', process.env.PORT || 3000);
 
-var server = app.listen(app.get('port'), function() {
-  debug('Express server listening on port ' + server.address().port);
+mongoose.connect(epa.get("mongodb"), function(err){
+  if (err) { throw err; }
+
+  console.log("connected to MongoDB");
+
+  var server = app.listen(app.get('port'), function() {
+    debug('Express server listening on port ' + server.address().port);
+  });
 });
