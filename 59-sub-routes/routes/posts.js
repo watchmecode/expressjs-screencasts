@@ -7,7 +7,7 @@ router.get("/", list);
 router.get("/:id", view);
 
 function list(req, res){
-  List.Posts.find(function(err, posts){
+  Lib.Posts.find(function(err, posts){
     if (err) { throw err; }
 
     res.render("posts", {
@@ -18,7 +18,7 @@ function list(req, res){
 
 function view(req, res){
   var postId = req.params.id;
-  List.Posts.loadById(postId, function(err, post){
+  Lib.Posts.loadById(postId, function(err, post){
     if (err) { throw err; }
 
     res.render("post", {

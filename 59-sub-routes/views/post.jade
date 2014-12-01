@@ -3,6 +3,9 @@ extends layout
 block content
   h1= post.title
 
+  p
+    a(href="/posts/#{post.id}/edit") Edit This Post
+
   p= post.content
 
   p
