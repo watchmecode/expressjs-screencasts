@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  form(method="POST")
+    p
+      | Title: 
+      input(name="title", value="#{post.title}")
+    p
+      | Content:
+      textarea(name="content")
+        = post.content
+    p
+      a(href="/posts/#{post.id}") cancel
+
+      input(type="submit", value="save")
