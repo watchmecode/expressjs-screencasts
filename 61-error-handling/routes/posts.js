@@ -12,7 +12,7 @@ router.use("/:id/author", author);
 
 router.param(":id", function(req, res, next, id){
   Lib.Posts.loadById(id, function(err, post){
-    if (err) { throw err; }
+    if (err) { return next(err); }
 
     req.appData = {
       post: post
@@ -22,9 +22,9 @@ router.param(":id", function(req, res, next, id){
   });
 });
 
-function list(req, res){
+function list(req, res, next){
   Lib.Posts.find(function(err, posts){
-    if (err) { throw err; }
+    if (err) { return next(err); }
 
     res.render("posts", {
       posts: posts
@@ -32,14 +32,14 @@ function list(req, res){
   });
 }
 
-function view(req, res){
+function view(req, res, next){
   var post = req.appData.post;
   res.render("post", {
     post: post
   });
 }
 
-function edit(req, res){
+function edit(req, res, next){
   var post = req.appData.post;
   res.render("post-edit", {
     post: post
