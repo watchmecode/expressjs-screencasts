@@ -1,7 +1,10 @@
 extends layout
 
 block content
-  h1= Author Info
+  h1 
+    | Author Info For:
+    = post.title
+
 
   p
     | first name: 
