@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1 
+    | Author Info For:
+    = post.title
+
+
+  p
+    | first name: 
+    = author.firstName
+
+  p
+    | last name: 
+    = author.lastName
+
+  p
+    | username: 
+    = author.username
+
+  p
+    | email: 
+    = author.email
+
