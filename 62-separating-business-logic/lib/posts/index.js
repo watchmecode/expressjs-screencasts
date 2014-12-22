@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 var SchemaTypes = mongoose.Schema.Types;
-var StatusPlugin = require("./status");
+var StatusPlugin = require("status");
 var CommentSchema = require("./comment");
 
 var Status = {

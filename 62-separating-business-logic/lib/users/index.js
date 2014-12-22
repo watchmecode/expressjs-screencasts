@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 var bcrypt = require("bcrypt");
-var StatusPlugin = require("./status");
+var StatusPlugin = require("status");
 
 var User;
 var SALT_WORK_FACTOR = 10;

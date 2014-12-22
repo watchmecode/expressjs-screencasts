@@ -1,6 +1,6 @@
 var express = require("express");
 var author = require("./post-author");
-var Lib = require("../lib");
+var Posts = require("posts");
 
 var router = new express.Router();
 
@@ -11,7 +11,7 @@ router.get("/:id/edit", edit);
 router.use("/:id/author", author);
 
 router.param(":id", function(req, res, next, id){
-  Lib.Posts.loadById(id, function(err, post){
+  Posts.loadById(id, function(err, post){
     if (err) { return next(err); }
 
     req.appData = {
@@ -23,7 +23,7 @@ router.param(":id", function(req, res, next, id){
 });
 
 function list(req, res, next){
-  Lib.Posts.find(function(err, posts){
+  Posts.find(function(err, posts){
     if (err) { return next(err); }
 
     res.render("posts", {
