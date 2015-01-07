@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1 
+    | Edit Blog Post: 
+    = post.title
+  form(method="POST")
+    p
+      | Title: 
+      br
+      input(name="title", value="#{post.title}")
+    p
+      | Content:
+      br
+      textarea(name="content", cols=100, rows=10)
+        = post.content
+    p
+      a(href="/posts/#{post.id}") cancel
+      | &nbsp;
+      input(type="submit", value="save")
