@@ -5,16 +5,23 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session')
+var MongoStore = require('connect-mongostore')(session);
+var mongoose = require("mongoose");
 
 var routes = require('./routes');
 
-var app = express()
+var app = express();
 
 app.use(session({
   secret: 'sdfjasgo4 ekh4watkhz84 hk4z984fzkh',
   resave: false,
-  saveUninitialized: true
-}))
+  saveUninitialized: true,
+  store: new MongoStore({
+    db: 'sessions',
+    mongooseConnection: mongoose.connections[0]
+  })
+}));
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

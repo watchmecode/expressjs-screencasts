@@ -38,7 +38,10 @@ function view(req, res, next){
   if (!req.session.viewedPosts){
     req.session.viewedPosts = [];
   }
-  req.session.viewedPosts.push(post);
+  req.session.viewedPosts.push({
+    id: post.id,
+    title: post.title
+  });
 
   res.render("post", {
     post: post
