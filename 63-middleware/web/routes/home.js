@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 function addSomething(req, res, next){
-  if (true == false){
+  if (req.user.isLoggedIn){
     next();
   } else {
     res.render("error");
