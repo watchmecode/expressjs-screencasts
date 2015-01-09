@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1= post.title
+
+  p
+    a(href="/posts/#{post.id}/edit") Edit This Post
+
+  p= post.content
+
+  p
+    b author: 
+    a(href="/posts/#{post.id}/author")
+      = post.author.fullName
+
+  p 
+    b 
+      | Other posts by 
+      = post.author.fullName
+    ul
+      - each post in postsByAuthor
+        li
+          a(href="/posts/#{post.id}")= post.title
+
