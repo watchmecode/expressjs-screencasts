@@ -30,5 +30,13 @@ PostSchema.static("loadById", function(id, cb){
     .exec(cb);
 });
 
+PostSchema.static("findByAuthor", function(authorId, cb){
+  var postsByAuthor = {
+    author: authorId
+  };
+
+  this.find(postsByAuthor, cb);
+});
+
 var Post = mongoose.model("post", PostSchema);
 module.exports = Post;

@@ -5,7 +5,7 @@ var Posts = require("posts");
 var router = new express.Router();
 
 router.get("/", list);
-router.get("/:id", view);
+router.get("/:id", captureView, getPostsByAuthor, view);
 router.get("/:id/edit", edit);
 
 router.use("/:id/author", author);
@@ -34,6 +34,26 @@ function list(req, res, next){
 
 function view(req, res, next){
   var post = req.appData.post;
+  var postsByAuthor = req.appData.postsByAuthor;
+
+  res.render("post", {
+    post: post,
+    postsByAuthor: postsByAuthor
+  });
+}
+
+function edit(req, res, next){
+  var post = req.appData.post;
+  res.render("post-edit", {
+    post: post
+  });
+}
+
+// middleware
+// ----------
+
+function captureView(req, res, next){
+  var post = req.appData.post;
 
   if (!req.session.viewedPosts){
     req.session.viewedPosts = [];
@@ -43,25 +63,18 @@ function view(req, res, next){
     title: post.title
   });
 
-  var postsByAuthor = {
-    author: post.author.id
-  };
-
-  Posts.find(postsByAuthor, function(err, posts){
-    if (err) { return next(err); }
-
-    res.render("post", {
-      post: post,
-      postsByAuthor: posts
-    });
-
-  });
+  next();
 }
 
-function edit(req, res, next){
+function getPostsByAuthor(req, res, next){
   var post = req.appData.post;
-  res.render("post-edit", {
-    post: post
+  var authorId = post.author.id;
+
+  Posts.findByAuthor(authorId, function(err, posts){
+    if (err) { return next(err); }
+
+    req.appData.postsByAuthor = posts;
+    next();
   });
 }
 
